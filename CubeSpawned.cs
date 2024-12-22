@@ -21,12 +21,18 @@ public class CubeSpawned : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.TryGetComponent<Platform>(out Platform platform))
+            HandlingCollision();
+    }
+
+    private void HandlingCollision()
+    {
         int minValueTime = 2;
         int maxValueTime = 5;
 
         if (_countCollision < 1)
             SetSolor();
-       
+
         _lifetime = UnityEngine.Random.Range(minValueTime, maxValueTime);
         Invoke(nameof(DisabledCube), _lifetime);
         _countCollision++;
