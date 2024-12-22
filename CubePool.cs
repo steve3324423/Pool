@@ -41,11 +41,7 @@ public class CubePool : MonoBehaviour
 
     private CubeSpawned Create()
     {
-        int minValue = 0;
-        int maxValue = 10;
-
-        Vector3 randomPosition = new Vector3(Random.Range(minValue,maxValue),Random.Range(minValue,maxValue),Random.Range(minValue, maxValue));
-        CubeSpawned cube = Instantiate(_cubePrefab,randomPosition,Quaternion.identity);
+        CubeSpawned cube = Instantiate(_cubePrefab,GetRandomPosition(),Quaternion.identity);
         _cubes.Add(cube);
 
         SubscribeEvents();
@@ -54,7 +50,7 @@ public class CubePool : MonoBehaviour
 
     private void OnTakeFromPool(CubeSpawned cube)
     {
-        cube.transform.position = Vector3.one;
+        cube.transform.position = GetRandomPosition();
         cube.gameObject.SetActive(true);
     }
 
@@ -80,5 +76,13 @@ public class CubePool : MonoBehaviour
     private void OnDisableCube(CubeSpawned cube)
     {
         _pool.Release(cube);
+    }
+
+    private Vector3 GetRandomPosition()
+    {
+        int minValue = 0;
+        int maxValue = 10;
+
+        return new Vector3(Random.Range(minValue, maxValue), Random.Range(minValue, maxValue), Random.Range(minValue, maxValue));
     }
 }
