@@ -45,9 +45,9 @@ public class CubeSpawner : MonoBehaviour
     private CubeSpawned Create()
     {
         CubeSpawned cube = Instantiate(_cubePrefab,GetRandomPosition(),Quaternion.identity);
+        cube.DisableCube += OnDisableCube;
         _cubes.Add(cube);
 
-        SubscribeEvents();
         return cube;
     }
 
